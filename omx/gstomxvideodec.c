@@ -1250,6 +1250,11 @@ gst_omx_video_dec_loop (GstOMXVideoDec * self)
   GstClockTimeDiff deadline;
   OMX_ERRORTYPE err;
 
+  if (!gst_pad_is_active(GST_VIDEO_DECODER_SRC_PAD (self))) {
+    GST_DEBUG_OBJECT (self, "Src pad not active, not acquiring buffer and flushing instead");
+      goto flushing;
+  }
+
 #if defined (USE_OMX_TARGET_RPI) && defined (HAVE_GST_GL)
   port = self->eglimage ? self->egl_out_port : self->dec_out_port;
 #else
