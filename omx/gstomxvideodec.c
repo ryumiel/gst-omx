@@ -1910,8 +1910,11 @@ gst_omx_video_dec_set_format (GstVideoDecoder * decoder,
               5 * GST_SECOND) != OMX_ErrorNone)
         return FALSE;
       if (gst_omx_port_wait_buffers_released (out_port,
-              1 * GST_SECOND) != OMX_ErrorNone)
+              1 * GST_SECOND) != OMX_ErrorNone) {
+#if !(defined (USE_OMX_TARGET_RPI) && defined (HAVE_GST_GL))
         return FALSE;
+#endif
+      }
       if (gst_omx_port_deallocate_buffers (self->dec_in_port) != OMX_ErrorNone)
         return FALSE;
       if (gst_omx_video_dec_deallocate_output_buffers (self) != OMX_ErrorNone)
