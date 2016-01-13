@@ -1712,9 +1712,9 @@ gst_omx_video_dec_stop (GstVideoDecoder * decoder)
   g_cond_broadcast (&self->drain_cond);
   g_mutex_unlock (&self->drain_lock);
 
-  gst_omx_component_get_state (self->dec, 5 * GST_SECOND);
+  gst_omx_component_get_state (self->dec, 0);
 #if defined (USE_OMX_TARGET_RPI) && defined (HAVE_GST_GL)
-  gst_omx_component_get_state (self->egl_render, 1 * GST_SECOND);
+  gst_omx_component_get_state (self->egl_render, 0);
 #endif
 
   gst_buffer_replace (&self->codec_data, NULL);
