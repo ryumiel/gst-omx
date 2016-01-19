@@ -56,7 +56,7 @@ struct _GstOMXVideoDec
   /* < protected > */
   GstOMXComponent *dec;
   GstOMXPort *dec_in_port, *dec_out_port;
-  
+
   GstBufferPool *in_port_pool, *out_port_pool;
 
   /* < private > */
